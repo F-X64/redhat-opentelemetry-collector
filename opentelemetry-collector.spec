@@ -12,12 +12,12 @@ Collector with the supported components for a Red Hat build of OpenTelemetry}
 %global godocs        README.md
 
 Name:           opentelemetry-collector
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Red Hat build of OpenTelemetry
 
 License:        Apache-2.0
 
-Source0:        opentelemetry-collector-0.102.1.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires: systemd
 BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -34,11 +34,11 @@ Requires(postun): /usr/sbin/userdel
 mkdir -p _build
 mkdir -p _build/bin
 
-%setup -q -n redhat-opentelemetry-collector-0.102.1
+%setup -q -n redhat-%{name}-%{version}
 
 %build
 
-go build -v -buildmode pie -mod vendor -o %{gobuilddir}/bin/opentelemetry-collector
+go build -ldflags "-s -w" -v -buildmode pie -mod vendor -o %{gobuilddir}/bin/opentelemetry-collector
 
 %define debug_package %{nil}
 
@@ -90,10 +90,11 @@ fi
 %{_bindir}/*
 
 %changelog
+* Wed Jul 24 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1-2
+- spec: strip go binary
 * Tue Jul 16 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1-1
 - rpm: trim date (#89) (Ben B)
 - Add transform processor (#88) (Ruben Vargas)
-
 * Fri Jun 28 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1
 - move microshift specifics into another rpm
 - bump collector version to 0.102.0
