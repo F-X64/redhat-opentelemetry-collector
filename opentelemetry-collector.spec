@@ -1,7 +1,7 @@
 %global goipath         github.com/os-observability/redhat-opentelemetry-collector
 
 Version:                0.102.1
-ExcludeArch:            %{ix86} s390 ppc ppc64 aarch64
+ExcludeArch:            %{ix86} s390 ppc ppc64
 
 %gometa
 
@@ -12,7 +12,7 @@ Collector with the supported components for a Red Hat build of OpenTelemetry}
 %global godocs        README.md
 
 Name:           opentelemetry-collector
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Red Hat build of OpenTelemetry
 
 License:        Apache-2.0
@@ -102,7 +102,9 @@ fi
 %{_bindir}/*
 
 %changelog
-* Wed Aug 01 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1-3
+* Mon Aug 19 2024 Felix Kolwa <fkolwa@redhat.com> - 0.102.1-4
+- include aarch64 build target
+* Thu Aug 01 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1-3
 - Add default selinux policy for journald receiver
 - Bump revision
 * Wed Jul 24 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1-2
