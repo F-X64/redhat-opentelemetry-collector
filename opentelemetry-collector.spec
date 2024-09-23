@@ -1,6 +1,6 @@
 %global goipath         github.com/os-observability/redhat-opentelemetry-collector
 
-Version:                0.102.1
+Version:                0.107.0
 ExcludeArch:            %{ix86} s390 ppc ppc64
 
 %gometa
@@ -12,19 +12,19 @@ Collector with the supported components for a Red Hat build of OpenTelemetry}
 %global godocs        README.md
 
 Name:           opentelemetry-collector
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Red Hat build of OpenTelemetry
 
 License:        Apache-2.0
 
-Source0:        %{name}-%{version}.tar.gz
+Source0:        redhat-%{name}-%{version}.tar.gz
 Source1:        otel_collector_journald.te
 
 BuildRequires: systemd
 BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires: binutils
 BuildRequires: git
-BuildRequires:  policycoreutils, checkpolicy, selinux-policy-devel
+BuildRequires: policycoreutils, checkpolicy, selinux-policy-devel
 
 Requires(pre): /usr/sbin/useradd, /usr/bin/getent
 Requires(postun): /usr/sbin/userdel
@@ -102,8 +102,19 @@ fi
 %{_bindir}/*
 
 %changelog
-* Mon Aug 19 2024 Felix Kolwa <fkolwa@redhat.com> - 0.102.1-4
-- include aarch64 build target
+* Mon Sep 23 2024 Felix Kolwa <fkolwa@redhat.com> - 0.107.0-1
+- Version bump to 0.107.0
+- Reset release to 1
+- Update addresses the following CVEs:
+- CVE-2024-34155
+- CVE-2024-34156
+- CVE-2024-42368
+* Thu Sep 12 2024 Felix Kolwa <fkolwa@redhat.com> - 0.102.1-4
+- Fix SELinux policy resource names
+- Use sources for SELinux resources in spec file
+- Bump revision
+* Mon Aug 19 2024 Pavol Loffay <ploffay@redhat.com> - 0.102.1-4
+- Added support for aarch64
 * Thu Aug 01 2024 Benedikt Bongartz <bongartz@redhat.com> - 0.102.1-3
 - Add default selinux policy for journald receiver
 - Bump revision
